@@ -7,7 +7,7 @@ import { Theme } from 'react-native-basic-elements';
 import { arRealmTheme } from '@/Config/theme';
 // Assuming you set up standard navigation stacks
 import AppStack from '@/Navigation/AppStack'; 
-import NavigationService from '@/Services/Navigation';
+import NavigationService from '@/Services/NavigationService';
 
 const Stack = createStackNavigator();
 

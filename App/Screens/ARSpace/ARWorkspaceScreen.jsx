@@ -1,17 +1,15 @@
 import React, { useState, useMemo } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { ViroARSceneNavigator } from '@reactvision/react-viro';
-import { Text, useTheme, Icon } from 'react-native-basic-elements';
+import { Text, useTheme, Icon, AppButton } from 'react-native-basic-elements';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { moderateScale, scale, verticalScale } from '@/Constants/PixelRatio';
-import Button from '@/Components/Common/Button'; 
 import ARModelScene from '@/Components/AR/ARModelScene';
 
 const ARWorkspaceScreen = ({ navigation }) => {
   const colors = useTheme();
   const insets = useSafeAreaInsets();
   
-  // Enforcing your highly optimized stylesheet initialization
   const styles = useMemo(() => createStyles(colors, insets), [colors, insets]);
   
   const [activeModel, setActiveModel] = useState(null);
@@ -28,11 +26,9 @@ const ARWorkspaceScreen = ({ navigation }) => {
       <View style={styles.uiOverlay} pointerEvents="box-none">
         
         <View style={styles.header} pointerEvents="box-none">
-          <Button
-            variant="secondary"
-            size="small"
+          <AppButton
             style={styles.backBtn}
-            icon={<Icon name="arrow-left" type="Feather" color={colors.textPrimary} />}
+            leftIcon={<Icon name="arrow-left" type="Feather" color={colors.textPrimary} />}
             onPress={() => navigation.goBack()}
           />
           <View style={styles.instructionBadge}>
@@ -43,11 +39,11 @@ const ARWorkspaceScreen = ({ navigation }) => {
         </View>
 
         <View style={styles.bottomControls} pointerEvents="box-none">
-           <Button 
+           <AppButton 
              title="Spawn Test Box"
-             variant="primary"
              onPress={() => setActiveModel(null)}
              style={styles.actionBtn}
+             textStyle={styles.actionBtnText}
            />
         </View>
 
@@ -73,7 +69,6 @@ const createStyles = (colors, insets) => StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: scale(16),
-    // Dynamic inset handling built right into the memoized object
     paddingTop: insets.top + verticalScale(16), 
   },
   backBtn: {
@@ -82,6 +77,10 @@ const createStyles = (colors, insets) => StyleSheet.create({
     borderRadius: moderateScale(20),
     paddingHorizontal: 0,
     paddingVertical: 0,
+    marginHorizontal: 0, // AppButton adds default margins, this resets it
+    backgroundColor: colors.cardBackground, // Mimics the "secondary" variant
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   instructionBadge: {
     marginLeft: scale(16),
@@ -97,15 +96,21 @@ const createStyles = (colors, insets) => StyleSheet.create({
   },
   bottomControls: {
     paddingHorizontal: scale(24),
-    // Dynamic inset handling built right into the memoized object
     paddingBottom: insets.bottom + verticalScale(32), 
   },
   actionBtn: {
+    backgroundColor: colors.primary, // Mimics the "primary" variant
+    marginHorizontal: 0, // Resets AppButton default margin
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 5,
     elevation: 6,
+  },
+  actionBtnText: {
+    fontFamily: 'Montserrat-Medium', 
+    fontSize: moderateScale(14),
+    color: colors.white,
   }
 });
 

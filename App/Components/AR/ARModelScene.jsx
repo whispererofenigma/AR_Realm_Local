@@ -9,7 +9,8 @@ import {
   Viro3DObject,
   ViroBox, // Fallback object if 3D model fails to load
   ViroMaterials,
-} from '@viro-community/react-viro';
+} from '@reactvision/react-viro';
+
 
 // Pre-register materials for performance
 ViroMaterials.createMaterials({

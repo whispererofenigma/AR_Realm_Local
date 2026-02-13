@@ -1,9 +1,8 @@
 import React, { useMemo } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Text, useTheme, Icon } from 'react-native-basic-elements';
+import { Text, useTheme, Icon, AppButton } from 'react-native-basic-elements';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { moderateScale, verticalScale } from '@/Constants/PixelRatio';
-import Button from '@/Components/Common/Button'; 
 
 const HomeScreen = ({ navigation }) => {
   const colors = useTheme();
@@ -22,12 +21,12 @@ const HomeScreen = ({ navigation }) => {
           Explore 3D models in your physical space.
         </Text>
 
-        <Button
+        <AppButton
           title="Launch AR Workspace"
-          variant="primary"
-          icon={<Icon name="box" type="Feather" color={colors.white} />}
+          leftIcon={<Icon name="box" type="Feather" color={colors.white} style={styles.btnIcon} />}
           onPress={() => navigation.navigate('ARWorkspace')}
           style={styles.launchBtn}
+          textStyle={styles.launchBtnText}
         />
       </View>
     </View>
@@ -66,7 +65,17 @@ const createStyles = (colors, insets) => StyleSheet.create({
     width: '100%',
     height: verticalScale(56),
     borderRadius: moderateScale(12),
+    backgroundColor: colors.primary, // AppButton defaults to primary, explicit definition for safety
+    marginHorizontal: 0,
   },
+  launchBtnText: {
+    fontFamily: 'Montserrat-Medium',
+    fontSize: moderateScale(16),
+    color: colors.white,
+  },
+  btnIcon: {
+    marginRight: moderateScale(8),
+  }
 });
 
 export default HomeScreen;
